@@ -9,7 +9,7 @@ services:
   steam:
     depends_on:
       - sunshine
-    image: josh5/steam-headless:latest
+    image: ghcr.io/games-on-whales/steam:edge
 #   build:
 #     context: ./images/steam
 #     args:
