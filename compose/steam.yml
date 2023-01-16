@@ -27,7 +27,7 @@ services:
       # Pulse socket, audio
       - ${PULSE_SOCKET_HOST}:${PULSE_SOCKET_GUEST}
       # Home directory: client, games, downloads, etc
-      - /mnt/cache/appdata/steam-headless/:/home/retro/
+      - ${local_state}/:/home/retro/
       - /mnt/cache/Games/:/mnt/games
       # - /mnt/user/appdata/builds/gow/sudo-test:/etc/sudoers.d/retro:ro
       # The following is needed by the webview otherwise you'll get Less than
