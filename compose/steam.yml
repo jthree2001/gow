@@ -9,10 +9,12 @@ services:
   steam:
     depends_on:
       - sunshine
-    # image: ghcr.io/games-on-whales/steam:edge
-  build:
-    context: .
-    dockerfile: ./Steam-Dockerfile
+    image: jthree2001/steam-headless-ubuntu:dev
+#   build:
+#     context: .
+#     args:
+#       BASE_IMAGE: ${BUILD_BASE_IMAGE}
+#       BASE_APP_IMAGE: ${BUILD_BASE_APP_IMAGE}
     runtime: ${DOCKER_RUNTIME}
     privileged: true
     network_mode: ${UDEVD_NETWORK}
