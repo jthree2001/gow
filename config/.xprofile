@@ -1,0 +1,4 @@
+#!/bin/sh
+xrandr --newmode "2400x1080" 337.28 2400 2584 2848 3296 1080 1081 1084 1137 -HSync +Vsync
+xrandr --addmode HDMI-A-0 2400x1080
+xrandr --output HDMI-A-0 --mode "2400x1080"

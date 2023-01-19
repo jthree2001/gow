@@ -9,12 +9,10 @@ services:
   steam:
     depends_on:
       - sunshine
-    image: ghcr.io/games-on-whales/steam:edge
-#   build:
-#     context: ./images/steam
-#     args:
-#       BASE_IMAGE: ${BUILD_BASE_IMAGE}
-#       BASE_APP_IMAGE: ${BUILD_BASE_APP_IMAGE}
+    # image: ghcr.io/games-on-whales/steam:edge
+  build:
+    context: .
+    dockerfile: ./Steam-Dockerfile
     runtime: ${DOCKER_RUNTIME}
     privileged: true
     network_mode: ${UDEVD_NETWORK}
@@ -28,7 +26,6 @@ services:
       - ${PULSE_SOCKET_HOST}:${PULSE_SOCKET_GUEST}
       # Home directory: client, games, downloads, etc
       - ${local_state}/:/home/retro/
-      - /mnt/cache/Games/:/mnt/games
       # - /mnt/user/appdata/builds/gow/sudo-test:/etc/sudoers.d/retro:ro
       # The following is needed by the webview otherwise you'll get Less than
       # 64MB of free space in temporary directory

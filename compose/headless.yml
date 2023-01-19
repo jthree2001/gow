@@ -23,6 +23,9 @@ services:
       - udev:/run/udev/:ro
       # The xorg socket, it'll be populated when up and running
       - ${XORG_SOCKET}:/tmp/.X11-unix
+      - /mnt/media_cache/gow/config/ensure-nvidia-dummy.sh:/opt/gow/ensure-nvidia-xorg-driver.sh
+      - /mnt/media_cache/gow/config/xorg-amd-primary.conf:/usr/share/X11/xorg.conf.d/01-amd-primary.conf:ro
+      - /mnt/media_cache/gow/config/.xprofile:/home/retro/.xprofile
       # run-gow: xorg_driver
 
     ipc: ${XORG_IPC} # Needed for MIT-SHM, removing this should cause a performance hit see https://github.com/jessfraz/dockerfiles/issues/359

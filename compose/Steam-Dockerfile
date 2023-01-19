@@ -1,0 +1,21 @@
+FROM ghcr.io/games-on-whales/steam:edge
+ARG DEBIAN_FRONTEND=noninteractive
+
+ARG REQUIRED_PACKAGES=" \
+    steam-devices \
+    vulkan-tools \
+"
+
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends software-properties-common && \
+    # \
+    # Install steam (Steam is 32-bit only) \
+    dpkg --add-architecture i386 && \
+    add-apt-repository multiverse && \
+    apt-get update -y && \
+    apt-get install -y --no-install-recommends $REQUIRED_PACKAGES && \
+    # \
+    # Cleanup \
+    apt-get remove -y software-properties-common && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
