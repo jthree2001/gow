@@ -2,12 +2,36 @@ FROM ubuntu:22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN useradd -rm -d /home/retro -s /bin/bash -g root -G sudo -u 1000 retro
 # TODO: should we include any drivers or anything here? The GL stuff that the
 # sunshine container has, or the intel drivers, etc?  AMD drivers?
+
+ENV \
+    TZ="America/New York" \
+    UNAME=retro \
+    PUID=1000 \
+    PGID=1000
+
+# These depend on values defined in the previous set, so they (sadly) must be
+# in their own layer.
+ENV HOME=/home/$UNAME
+
+# Set up the user
+RUN --mount=type=bind,source=build/setup-retro-user,target=/setup-retro-user /setup-retro-user
+
 ARG REQUIRED_PACKAGES="\
     x11-utils \
-    sudo \
+    sudo lsof pciutils \
+    python3 \
+    python3-numpy \
+    python3-pip \
+    python3-setuptools \
+    avahi-utils \
+    dbus-x11 \
+    libxcomposite-dev \
+    libxcursor1 \
+    x11-xfs-utils \
+    xfonts-base \
+    xorg \
     "
 
 RUN apt-get update -y && \
@@ -83,7 +107,9 @@ COPY --chmod=777 scripts/bootstrap.sh /opt/gow/bootstrap.sh
 COPY --chmod=777 scripts/ensure-groups /opt/gow/ensure-groups
 COPY scripts/lib/ /opt/gow/bash-lib/
 
-COPY --chmod=777 scripts/startup.sh /opt/gow/startup-app.sh
+COPY --chmod=777 scripts/wait-x11 /opt/gow/wait-x11
+COPY --chmod=777 scripts/startup.sh /opt/gow/startup.sh
+COPY --chmod=777 scripts/startup-app.sh /opt/gow/startup-app.sh
 
 USER "retro"
 
