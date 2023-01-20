@@ -9,8 +9,8 @@ services:
   steam:
     depends_on:
       - sunshine
-    image: ghcr.io/games-on-whales/steam:edge
-    # image: jthree2001/steam-headless-ubuntu:dev
+    # image: ghcr.io/games-on-whales/steam:edge
+    image: jthree2001/steam-headless-ubuntu:dev
 #   build:
 #     context: ./images/steam
 #     args:
