@@ -2,10 +2,12 @@ FROM ubuntu:22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+RUN useradd -rm -d /home/retro -s /bin/bash -g root -G sudo -u 1000 retro
 # TODO: should we include any drivers or anything here? The GL stuff that the
 # sunshine container has, or the intel drivers, etc?  AMD drivers?
 ARG REQUIRED_PACKAGES="\
     x11-utils \
+    sudo \
     "
 
 RUN apt-get update -y && \
@@ -76,8 +78,16 @@ RUN \
 # so we just do it unconditionally.
 COPY configs/nvidia_icd.json /usr/share/vulkan/icd.d/nvidia_icd.json
 
+
+COPY --chmod=777 scripts/bootstrap.sh /opt/gow/bootstrap.sh
+COPY --chmod=777 scripts/ensure-groups /opt/gow/ensure-groups
+COPY scripts/lib/ /opt/gow/bash-lib/
+
 COPY --chmod=777 scripts/startup.sh /opt/gow/startup-app.sh
 
 USER "retro"
 
 ENV XDG_RUNTIME_DIR=/tmp/.X11-unix
+
+
+CMD [ "/opt/gow/bootstrap.sh" ]

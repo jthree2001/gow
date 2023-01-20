@@ -10,3 +10,4 @@ mkdir -p "$HOME/.steam/ubuntu12_32/steam-runtime"
 
 # Start Steam. Use `sudo` to make sure that group membership gets reloaded
 exec /usr/games/steam
+best 
