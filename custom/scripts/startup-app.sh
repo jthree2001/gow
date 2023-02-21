@@ -9,4 +9,4 @@ gow_log "Starting Steam with DISPLAY=${DISPLAY}"
 mkdir -p "$HOME/.steam/ubuntu12_32/steam-runtime"
 
 # Start Steam. Use `sudo` to make sure that group membership gets reloaded
-exec /usr/games/steam
+exec gamescope --nested-width 1920 --nested-height 1080 -r 90 -f --steam -- /usr/games/steam -gamepadui

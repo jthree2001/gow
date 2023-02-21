@@ -32,6 +32,8 @@ ARG REQUIRED_PACKAGES="\
     x11-xfs-utils \
     xfonts-base \
     xorg \
+    software-properties-common\
+    gpg-agent\
     "
 
 RUN apt-get update -y && \
@@ -45,6 +47,7 @@ COPY --chmod=777 scripts/wait-x11 /opt/gow/wait-x11
 RUN \
     echo "**** Update apt database ****" \
         && dpkg --add-architecture i386 \
+        && add-apt-repository ppa:samoilov-lex/gamescope \
         && apt-get update \
     && \
     echo "**** Install mesa requirements ****" \
@@ -63,6 +66,7 @@ RUN \
             mesa-vulkan-drivers \
             mesa-vulkan-drivers:i386 \
             vulkan-tools \
+            gamescope \
     && \
     echo "**** Section cleanup ****" \
         && apt-get clean autoclean -y \
