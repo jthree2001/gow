@@ -12,13 +12,13 @@ mkdir -p /etc/sudoers.d
 
 {
     # $UNAME should be able to add groups without a password
-    echo "${UNAME} ALL=(root) NOPASSWD: $(which groupadd)"
+    echo "${UNAME} ALL=(root) NOPASSWD:  /usr/bin/groupadd"
 
     # $UNAME should be able to chmod without a password
-    echo "${UNAME} ALL=(root) NOPASSWD: $(which chmod)"
+    echo "${UNAME} ALL=(root) NOPASSWD:  /usr/bin/chmod"
 
     # $UNAME should be able to add itself to groups without a password
-    echo "${UNAME} ALL=(root) NOPASSWD: $(which usermod) -G * ${UNAME}"
+    echo "${UNAME} ALL=(root) NOPASSWD: /usr/bin/usermod -G * ${UNAME}"
 
     # $UNAME should be able to run any commands as itself without a password
     # this makes it easy to reload group memberships
